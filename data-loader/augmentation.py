@@ -9,14 +9,15 @@ making tensor from loaded images.
 
 # load packages
 from torchvision import transforms
+import configs
 
 
 class Augmentation:
 
     @staticmethod
-    def transform_for_train_dataset(path):
+    def transform_for_train_dataset():
 
-        # transformation code for transforms
+        # transformation code for train data
         result = transforms.Compose([
 
             # change the size of the image
@@ -47,5 +48,29 @@ class Augmentation:
         return result
 
     @staticmethod
-    def transform_for_validation_and_test_dataset(path):
-        return ...
+    def transform_for_validation_and_test_dataset():
+
+        # transformation code for validation and test data
+        result = transforms.Compose([
+
+            # change the size of the image
+            transforms.Resize(
+
+                (
+                    configs.image_size, # amount
+                    configs.image_size # amount
+                )
+            ),
+
+            # make a tensor from imported image
+            transforms.ToTensor(),
+
+            # normalization part
+            transforms.Normalize(
+                mean = configs.mean, # mean
+                std = configs.std # std
+            )
+        ])
+
+        # returning the result
+        return result
