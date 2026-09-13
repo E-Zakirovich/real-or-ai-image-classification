@@ -32,3 +32,16 @@ class Methods:
         # return the result
         return images
 
+    # subset maker
+    @staticmethod
+    def make_subset(
+            dataset, # dataset to make a subset
+            indices # index of images
+    ):
+        subset = Subset(
+            dataset = dataset, # THE dataset
+            indices = indices # indices
+        )
+
+        # return the result
+        return subset
