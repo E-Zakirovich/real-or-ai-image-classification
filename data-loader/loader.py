@@ -45,6 +45,22 @@ class Load:
             transform=augmentation.transform_for_validation_and_test_dataset() # transformation method for import images
         )
 
+        # generate seed
+        just_seed = torch.Generator().manual_seed(
+            configs.seed
+        )
+
+        # splitting them according to their indices
+        train_indices, validation_indices = random_split(
+            train_images, # images
+            lengths = [
+                configs.train_split, # 0.9
+                configs.validation_split, # 0.1
+            ],
+            generator = just_seed # seed = 42
+        )
+
+       
 
     @staticmethod
     def data_pipeline():
