@@ -60,7 +60,19 @@ class Load:
             generator = just_seed # seed = 42
         )
 
-       
+        # make a subset for train data
+        train_subset = methods.make_subset(
+            train_images,  # src for subset
+            indices=train_indices,  # indices
+        )
+
+        # make a subset for validation data
+        validation_subset = methods.make_subset(
+            validation_images,  # src for subset
+            indices=validation_indices,  # indices
+        )
+
+
 
     @staticmethod
     def data_pipeline():
