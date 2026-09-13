@@ -10,8 +10,25 @@ of loader.py, but I want my code must be easy to understand.
 # load packages
 from torchvision import datasets
 from torch.utils.data import Subset, DataLoader
+from augmentation import Augmentation
+import configs
 
 
 class Methods:
-    def __init__(self):
-        ...
+
+    # image loader
+    @staticmethod
+    def load_images(
+            path, # the location of images
+            transform, # transformation type (for train, validation or test)
+    ):
+
+        # import images from path
+        images = datasets.ImageFolder(
+            root = path, # the location of the images
+            transform = transform # transformation type (for train, validation or test)
+        )
+
+        # return the result
+        return images
+
