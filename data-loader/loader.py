@@ -72,7 +72,31 @@ class Load:
             indices=validation_indices,  # indices
         )
 
+        # load the train dataset
+        train_data = methods.load_dataset(
+            train_subset,
+            batch_size=configs.batch_size,
+            num_workers=configs.num_workers,
+            shuffle=True
+        )
 
+        # load the validation dataset
+        validation_data = methods.load_dataset(
+            validation_subset,
+            batch_size=configs.batch_size,
+            num_workers=configs.num_workers,
+            shuffle=False
+        )
+
+        # load the test dataset
+        test_data = methods.load_dataset(
+            test_images,
+            batch_size=configs.batch_size,
+            num_workers=configs.num_workers,
+            shuffle=False
+        )
+
+        return train_data, validation_data, test_data
 
     @staticmethod
     def data_pipeline():
