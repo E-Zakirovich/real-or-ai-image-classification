@@ -11,8 +11,8 @@ to make worked datapipeline.
 # load packages
 import torch
 from torch.utils.data import random_split
-from augmentation import Augmentation
-from methods import Methods
+from .augmentation import Augmentation
+from .methods import Methods
 import configs
 
 # I am importing Augmentation
