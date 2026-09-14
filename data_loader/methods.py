@@ -49,7 +49,7 @@ class Methods:
     @staticmethod
     def load_dataset(
             subset, # we will get the data with subset
-            shuffle # true or false for shuffle, better true for train data, otherwise false is better
+            shuffle : bool # true or false for shuffle, better true for train data, otherwise false is better
     ):
         dataset = DataLoader(
             dataset = subset, # subset

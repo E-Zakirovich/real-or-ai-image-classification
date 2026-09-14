@@ -63,36 +63,30 @@ class Load:
         # make a subset for train data
         train_subset = methods.make_subset(
             train_images,  # src for subset
-            indices=train_indices,  # indices
+            indices=train_indices.indices,  # indices
         )
 
         # make a subset for validation data
         validation_subset = methods.make_subset(
             validation_images,  # src for subset
-            indices=validation_indices,  # indices
+            indices=validation_indices.indices,  # indices
         )
 
         # load the train dataset
         train_data = methods.load_dataset(
             train_subset,
-            batch_size=configs.batch_size,
-            num_workers=configs.num_workers,
             shuffle=True
         )
 
         # load the validation dataset
         validation_data = methods.load_dataset(
             validation_subset,
-            batch_size=configs.batch_size,
-            num_workers=configs.num_workers,
             shuffle=False
         )
 
         # load the test dataset
         test_data = methods.load_dataset(
             test_images,
-            batch_size=configs.batch_size,
-            num_workers=configs.num_workers,
             shuffle=False
         )
 

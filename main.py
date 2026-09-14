@@ -1,9 +1,22 @@
 from data_loader.loader import Load
 
-data = Load()
+def main():
+    data = Load()
+    train_data, validation_data, test_data = data.data_pipeline()
 
-train_data, validation_data, test_data = data.data_pipeline()
+    images = []
+    labels = []
+    for img_batch, label_batch in train_data:
+        for i in range(img_batch.size(0)):
+            images.append(img_batch[i])
+            labels.append(label_batch[i])
+            if len(images) == 10:
+                break
+        if len(images) == 10:
+            break
 
-first_10 = [train_data[i] for i in range(10)]
+    print(images[0].shape)
+    print(labels[:10])
 
-print(first_10)
+if __name__ == '__main__':
+    main()
