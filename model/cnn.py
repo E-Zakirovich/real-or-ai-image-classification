@@ -20,7 +20,7 @@ class CNN(neural_networks.Module):
         self.first_convolutional_layer = neural_networks.Conv2d(
             in_channels = configs.in_out_channels[0],
             out_channels = configs.in_out_channels[1],
-            kernel = configs.kernel_size,
+            kernel_size = configs.kernel_size,
             stride = configs.stride_size,
             padding = configs.padding_size
         )
@@ -32,7 +32,7 @@ class CNN(neural_networks.Module):
         self.second_convolutional_layer = neural_networks.Conv2d(
             in_channels = configs.in_out_channels[1],
             out_channels = configs.in_out_channels[2],
-            kernel = configs.kernel_size,
+            kernel_size = configs.kernel_size,
             stride = configs.stride_size,
             padding = configs.padding_size
         )
@@ -44,7 +44,7 @@ class CNN(neural_networks.Module):
         self.third_convolutional_layer = neural_networks.Conv2d(
             in_channels = configs.in_out_channels[2],
             out_channels = configs.in_out_channels[3],
-            kernel = configs.kernel_size,
+            kernel_size = configs.kernel_size,
             stride = configs.stride_size,
             padding = configs.padding_size
         )
@@ -56,7 +56,7 @@ class CNN(neural_networks.Module):
         self.fourth_convolutional_layer = neural_networks.Conv2d(
             in_channels = configs.in_out_channels[3],
             out_channels = configs.in_out_channels[4],
-            kernel = configs.kernel_size,
+            kernel_size = configs.kernel_size,
             stride = configs.stride_size,
             padding = configs.padding_size
         )
@@ -68,13 +68,25 @@ class CNN(neural_networks.Module):
         self.fifth_convolutional_layer = neural_networks.Conv2d(
             in_channels = configs.in_out_channels[4],
             out_channels = configs.in_out_channels[5],
-            kernel = configs.kernel_size,
+            kernel_size = configs.kernel_size,
             stride = configs.stride_size,
             padding = configs.padding_size
         )
 
         # fifth batch normalization
         self.fifth_batch_normalization = neural_networks.BatchNorm2d(configs.in_out_channels[5])
+
+        # sixth concolutional layer
+        self.sixth_convolutional_layer = neural_networks.Conv2d(
+            in_channels = configs.in_out_channels[5],
+            out_channels = configs.in_out_channels[6],
+            kernel_size = configs.kernel_size,
+            stride = configs.stride_size,
+            padding = configs.padding_size
+        )
+
+        # sixth batch normalization
+        self.sixth_batch_normalization = neural_networks.BatchNorm2d(configs.in_out_channels[6])
 
         # relu
         self.relu = neural_networks.ReLU()
@@ -120,6 +132,9 @@ class CNN(neural_networks.Module):
         # fifth layer
         x = self.pool(self.relu(self.fifth_batch_normalization(self.fifth_convolutional_layer(x))))
 
+        # sixth layer
+        x = self.pool(self.relu(self.sixth_batch_normalization(self.sixth_convolutional_layer(x))))
+
         # neural networks part 
         x = x.view(x.size(0), -1)
 
@@ -131,7 +146,7 @@ class CNN(neural_networks.Module):
         x = self.drop(x)
 
         # connection between hidden and output layer
-        x = self.fully_connected_one(x)
+        x = self.fully_connected_two(x)
 
         # return the result
         return x
