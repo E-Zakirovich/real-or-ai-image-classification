@@ -20,3 +20,9 @@ num_workers = 2
 seed = 42
 train_split = 0.9
 validation_split = 0.1
+
+# convolutuional neural network settings
+in_out_channels = [8, 16, 32, 64, 128, 256]
+kernel_size = 3
+stride_size = 1
+padding_size = 1
