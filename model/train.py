@@ -10,6 +10,7 @@ import numpy
 import torch.optim as optimize
 import torch.nn  as neural_networks
 import configs
+from .evaluation import Evaluation
 
 class Train:
 
@@ -64,14 +65,21 @@ class Train:
                 correct += (predicted == label).sum().item()
                 total += label.size(0)
 
-            train_loss = running_loss / total
-            train_accuracy = correct / total
+            evaluator = Evaluation(self.model, self.validation_loader, self.criterion, self.device)
+            avg_loss, accuracy, precision, recall, fscore, support = evaluator.run() # getting the result
 
-            print(
-                f"""
-                    train loss: {train_loss}
-                    train accuracy: {train_accuracy}
-                """
-            )
+            train_loss = running_loss / total
+            train_acc = correct / total
+
+            print(f"""
+                        Epoch {epoch + 1} / {epochs}
+                        train loss: {train_loss:.4f}
+                        train acc: {train_acc:.4f}
+                        val loss: {avg_loss:.4f}
+                        val acc: {accuracy:.4f}
+                        val precision: {precision:.4f}
+                        val recall: {recall:.4f}
+                        val f1: {fscore:.4f}
+                        """)
 
         return self.model # 67 67 67 67 (six seven meme. i dunno why but this meme came to my mind right now with no reason).
