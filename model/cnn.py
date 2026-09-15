@@ -75,3 +75,31 @@ class CNN(neural_networks.Module):
 
         # fifth batch normalization
         self.fifth_batch_normalization = neural_networks.BatchNorm2d(configs.in_out_channels[5])
+
+        # relu
+        self.relu = neural_networks.ReLU()
+
+        # pooling
+        self.pool = neural_networks.MaxPool2d(
+            kernel_size = configs.kernel_size_for_pooling,
+            stride = configs.stride_size_for_pooling
+        )
+
+        # connection between input and hidden layer
+        self.fully_connected_one = neural_networks.Linear(
+            configs.input_layer,
+            configs.hidden_layer
+        )
+
+        # dropout
+        self.drop = neural_networks.Dropout(
+            configs.dropout
+        )
+
+        # connection between hidden layer and output layer
+        self.fully_connected_two = neural_networks.Linear(
+            configs.hidden_layer,
+            configs.output_layer
+        )
+
+    
