@@ -74,4 +74,4 @@ class Train:
                 """
             )
 
-                
+        return self.model # 67 67 67 67 (six seven meme. i dunno why but this meme came to my mind right now with no reason).
