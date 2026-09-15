@@ -102,4 +102,36 @@ class CNN(neural_networks.Module):
             configs.output_layer
         )
 
-    
+    # feed forward 
+    def forward(self, x):
+
+        # first layer
+        x = self.pool(self.relu(self.first_batch_normalization(self.first_convolutional_layer(x))))
+
+        # second layer
+        x = self.pool(self.relu(self.second_batch_normalization(self.second_convolutional_layer(x))))
+
+        # third layer
+        x = self.pool(self.relu(self.third_batch_normalization(self.third_convolutional_layer(x))))
+
+        # fourth layer
+        x = self.pool(self.relu(self.fourth_batch_normalization(self.fourth_convolutional_layer(x))))
+
+        # fifth layer
+        x = self.pool(self.relu(self.fifth_batch_normalization(self.fifth_convolutional_layer(x))))
+
+        # neural networks part 
+        x = x.view(x.size(0), -1)
+
+        # nnet building part
+        # connection between input and hidden layer
+        x = self.relu(self.fully_connected_one(x))
+
+        # dropout
+        x = self.drop(x)
+
+        # connection between hidden and output layer
+        x = self.fully_connected_one(x)
+
+        # return the result
+        return x
